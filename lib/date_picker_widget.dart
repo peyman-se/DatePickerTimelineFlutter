@@ -136,7 +136,7 @@ class DatePickerState extends State<DatePicker> {
   void didUpdateWidget(covariant DatePicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     _currentDate = widget.initialSelectedDate;
-    if (widget.controller != null) {
+    if (widget.controller != null && widget.daysCount > 7) {
       widget.controller!.animateToSelection();
     }
   }
