@@ -15,6 +15,7 @@ class DateWidget extends StatelessWidget {
   final TextStyle? monthTextStyle, dayTextStyle, dateTextStyle;
   final Color selectionColor;
   final DateSelectionCallback? onDateSelected;
+  final Function? onLongPress;
   final String? locale;
 
   DateWidget({
@@ -23,6 +24,7 @@ class DateWidget extends StatelessWidget {
     required this.dayTextStyle,
     required this.dateTextStyle,
     required this.selectionColor,
+    this.onLongPress,
     this.width,
     this.onDateSelected,
     this.locale,
@@ -44,12 +46,22 @@ class DateWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(new DateFormat("MMM", locale).format(date).toUpperCase(), // Month
-                  style: monthTextStyle),
-              Text(date.day.toString(), // Date
-                  style: dateTextStyle),
-              Text(new DateFormat("E", locale).format(date).toUpperCase(), // WeekDay
-                  style: dayTextStyle)
+              Text(
+                  new DateFormat("E", locale)
+                      .format(date)
+                      .toUpperCase(), // WeekDay
+                  style: dayTextStyle),
+              Wrap(
+                children: [
+                  Text(
+                      new DateFormat("MMM", locale)
+                          .format(date)
+                          .toUpperCase(), // Month
+                      style: monthTextStyle),
+                  Text(date.day.toString(), // Date
+                      style: dateTextStyle)
+                ],
+              ),
             ],
           ),
         ),
@@ -59,6 +71,11 @@ class DateWidget extends StatelessWidget {
         if (onDateSelected != null) {
           // Call the onDateSelected Function
           onDateSelected!(this.date);
+        }
+      },
+      onLongPress: () {
+        if (onLongPress != null) {
+          onLongPress!(this.date);
         }
       },
     );
