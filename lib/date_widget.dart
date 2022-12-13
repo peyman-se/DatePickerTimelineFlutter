@@ -51,16 +51,11 @@ class DateWidget extends StatelessWidget {
                       .format(date)
                       .toUpperCase(), // WeekDay
                   style: dayTextStyle),
-              Wrap(
-                children: [
-                  Text(
+              Text(
                       new DateFormat("MMM", locale)
                           .format(date)
-                          .toUpperCase(), // Month
-                      style: monthTextStyle),
-                  Text(date.day.toString(), // Date
-                      style: dateTextStyle)
-                ],
+                          .toUpperCase() + ' ' + date.day.toString(), // Month
+                      style: dateTextStyle
               ),
             ],
           ),
